@@ -1,5 +1,7 @@
-from random import choice, randint
+from random import randint
+
 import pygame as pg
+
 
 # Константы для размеров поля и сетки:
 SCREEN_WIDTH, SCREEN_HEIGHT = 640, 480
@@ -26,7 +28,7 @@ APPLE_COLOR = (255, 0, 0)
 SNAKE_COLOR = (0, 255, 0)
 
 # Скорость движения змейки:
-SPEED = 10
+SPEED = 20
 
 # Координаты центра экрана:
 CENTER = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2)
@@ -55,17 +57,16 @@ class GameObject:
 
         Должен быть переопределен в дочерних классах.
         """
-        raise NotImplementedError('Метод draw должен быть переопределен в дочернем классе.')
+        raise NotImplementedError(
+            'Метод draw должен быть переопределен в дочернем классе.'
+        )
 
 
 class Apple(GameObject):
     """Класс для яблока, которое собирает змейка."""
 
     def __init__(self, occupied_positions=()):
-        """Инициализирует яблоко с начальной позицией и цветом.
-
-            occupied_positions: Занятые позиции на игровом поле.
-        """
+        """Инициализирует яблоко с начальной позицией и цветом."""
         super().__init__(body_color=APPLE_COLOR, border_color=BORDER_COLOR)
         self.occupied_positions = occupied_positions
         self.randomize_position()
@@ -101,7 +102,7 @@ class Snake(GameObject):
         self.positions = [self.position]
         self.direction = RIGHT
         self.next_direction = None
-        self.last =None
+        self.last = None  # Последняя удаленная позиция
 
     def update_direction(self):
         """Обновляет направление движения змейки."""
@@ -118,6 +119,7 @@ class Snake(GameObject):
         )
         self.positions.insert(0, new)
 
+        # Если длина змейки превышает ожидаемую, удаляем последний сегмент
         if len(self.positions) > self.length:
             self.last = self.positions.pop()
         else:
@@ -125,7 +127,7 @@ class Snake(GameObject):
 
     def draw(self):
         """Отрисовывает змейку на экране."""
-        # затираем последний удаленный сегмент
+        # Закрашиваем последний удаленный сегмент
         if self.last:
             rect = pg.Rect(self.last, (GRID_SIZE, GRID_SIZE))
             pg.draw.rect(screen, BOARD_BACKGROUND_COLOR, rect)
