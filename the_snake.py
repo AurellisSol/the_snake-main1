@@ -173,17 +173,17 @@ def main():
         snake.update_direction()
         snake.move()
 
-        # Проверка на столкновение с собой
+        # Проверка на столкновение с собой.
         if snake.get_head_position() in snake.positions[1:]:
             snake.reset()
             apple.randomize_position(occupied_positions=snake.positions)
 
-        # Проверка на сбор яблока
+        # Проверка на сбор яблока.
         elif snake.get_head_position() == apple.position:
             snake.length += 1
             apple.randomize_position(occupied_positions=snake.positions)
 
-        # Отрисовка
+        # Отрисовка.
         screen.fill(BOARD_BACKGROUND_COLOR)
         apple.draw()
         snake.draw()
