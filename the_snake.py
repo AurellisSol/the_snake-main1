@@ -92,7 +92,6 @@ class Snake(GameObject):
 
     def __init__(self):
         """Инициализирует змейку с начальной позицией,
-         
         цветом и направлением.
         """
         super().__init__(body_color=SNAKE_COLOR, border_color=BORDER_COLOR)
