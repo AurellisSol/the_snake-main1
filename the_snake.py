@@ -2,7 +2,6 @@ from random import randint
 
 import pygame as pg
 
-
 # Константы для размеров поля и сетки:
 SCREEN_WIDTH, SCREEN_HEIGHT = 640, 480
 GRID_SIZE = 20
@@ -92,7 +91,10 @@ class Snake(GameObject):
     """Класс для змейки, управляемой игроком."""
 
     def __init__(self):
-        """Инициализирует змейку с начальной позицией, цветом и направлением."""
+        """Инициализирует змейку с начальной позицией,
+         
+        цветом и направлением.
+        """
         super().__init__(body_color=SNAKE_COLOR, border_color=BORDER_COLOR)
         self.reset()
 
