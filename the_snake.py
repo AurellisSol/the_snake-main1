@@ -64,11 +64,11 @@ class GameObject:
 class Apple(GameObject):
     """Класс для яблока, которое собирает змейка."""
 
-    def __init__(self, occupied_positions=()):
+    def __init__(self, body_color=APPLE_COLOR, border_color=BORDER_COLOR ):
         """Инициализирует яблоко с начальной позицией и цветом."""
-        super().__init__(body_color=APPLE_COLOR, border_color=BORDER_COLOR)
-        self.occupied_positions = occupied_positions
+        super().__init__(body_color=body_color, border_color=border_color)
         self.randomize_position()
+
 
     def draw(self):
         """Отрисовывает яблоко на экране."""
@@ -76,7 +76,7 @@ class Apple(GameObject):
         pg.draw.rect(screen, self.body_color, rect)
         pg.draw.rect(screen, self.border_color, rect, 1)
 
-    def randomize_position(self, occupied_positions=()):
+    def randomize_position(self, occupied_positions):
         """Устанавливает случайную позицию для яблока на игровом поле."""
         while True:
             self.position = (
@@ -103,7 +103,6 @@ class Snake(GameObject):
         self.positions = [self.position]
         self.direction = RIGHT
         self.next_direction = None
-        self.last = None  # Последняя удаленная позиция
 
     def update_direction(self):
         """Обновляет направление движения змейки."""
@@ -114,9 +113,10 @@ class Snake(GameObject):
     def move(self):
         """Перемещает змейку в текущем направлении."""
         x, y = self.direction
+        head_x, head_y = self.get_head_position()
         new = (
-            (self.get_head_position()[0] + (x * GRID_SIZE)) % SCREEN_WIDTH,
-            (self.get_head_position()[1] + (y * GRID_SIZE)) % SCREEN_HEIGHT,
+            (head_x + (x * GRID_SIZE)) % SCREEN_WIDTH,
+            (head_y + (y * GRID_SIZE)) % SCREEN_HEIGHT,
         )
         self.positions.insert(0, new)
 
@@ -165,7 +165,7 @@ def main():
     """Основная функция игры, запускающая игровой цикл."""
     pg.init()
     snake = Snake()
-    apple = Apple(occupied_positions=snake.positions)
+    apple = Apple()
 
     while True:
         clock.tick(SPEED)
