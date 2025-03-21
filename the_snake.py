@@ -64,7 +64,7 @@ class GameObject:
 class Apple(GameObject):
     """Класс для яблока, которое собирает змейка."""
 
-    def __init__(self, body_color=APPLE_COLOR, border_color=BORDER_COLOR):
+    def __init__(self, body_color=None, border_color=None):
         """Инициализирует яблоко с начальной позицией и цветом."""
         super().__init__(body_color=body_color, border_color=border_color)
         self.randomize_position()
