@@ -65,9 +65,9 @@ class Apple(GameObject):
     """Класс для яблока, которое собирает змейка."""
 
     def __init__(self,
-        body_color=APPLE_COLOR,
-        border_color=BORDER_COLOR
-        ):
+                body_color=APPLE_COLOR,
+                border_color=BORDER_COLOR
+            ):
         """Инициализирует яблоко с начальной позицией и цветом."""
         super().__init__(body_color=body_color, border_color=border_color)
         self.randomize_position(occupied_positions=(CENTER,))
@@ -93,9 +93,9 @@ class Snake(GameObject):
     """Класс для змейки, управляемой игроком."""
 
     def __init__(self,
-        body_color=SNAKE_COLOR,
-        border_color=BORDER_COLOR
-        ):
+                body_color=SNAKE_COLOR,
+                border_color=BORDER_COLOR
+            ):
         """Инициализирует змейку с начальной позицией,
         цветом и направлением.
         """
@@ -120,8 +120,8 @@ class Snake(GameObject):
         x, y = self.direction
         head_x, head_y = self.get_head_position()
         new = (
-        (head_x + (x * GRID_SIZE)) % SCREEN_WIDTH,
-        (head_y + (y * GRID_SIZE)) % SCREEN_HEIGHT,
+            (head_x + (x * GRID_SIZE)) % SCREEN_WIDTH,
+            (head_y + (y * GRID_SIZE)) % SCREEN_HEIGHT,
         )
         self.positions.insert(0, new)
 
